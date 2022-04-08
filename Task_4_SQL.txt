@@ -1,0 +1,33 @@
+// I run this code snippets in order
+// First 
+
+SELECT DISTINCT country,date,daily_vaccinations,vaccines, 	PERCENTILE_DISC(.5) WITHIN GROUP (ORDER BY daily_vaccinations)
+
+OVER (PARTITION BY country) AS MEDIAN
+FROM country_vaccination_stats
+
+ALTER TABLE country_vaccination_stats
+ADD MEDIAN INTEGERcountry_vaccination_stats;
+
+
+
+// Second
+
+UPDATE MSSQL
+SET 
+daily_vaccinations = median
+WHERE
+daily_vaccinations  IS NULL;
+
+
+//Third
+
+
+UPDATE MSSQL
+SET 
+daily_vaccinations = 0
+WHERE
+daily_vaccinations  IS NULL;
+
+
+//
